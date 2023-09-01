@@ -13,10 +13,14 @@ class Network:
 
     @classmethod
     def load(cls, file_path: str | os.PathLike):
+        if not file_path.endswith('.pikl'):
+            raise InvalidFileType
         with open(file_path, 'rb') as f:
             return cls(pickle.load(f))
 
     def save(self, file_path: str | os.PathLike) -> None:
+        if not file_path.endswith('.pikl'):
+            raise InvalidFileType
         with open(file_path, 'wb') as f:
             pickle.dump(self.layers, f)
 
@@ -63,5 +67,10 @@ class Network:
 
 
 class UndefinedLossFunction(Exception):
-    def __init__(self, message="The loss function is not defined"):
-        super().__init__(message)
+    def __init__(self):
+        super().__init__("The loss function is not defined")
+
+
+class InvalidFileType(Exception):
+    def __init__(self):
+        super().__init__("File must be pickel file type")
