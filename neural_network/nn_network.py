@@ -73,4 +73,4 @@ class UndefinedLossFunction(Exception):
 
 class InvalidFileType(Exception):
     def __init__(self):
-        super().__init__("File must be pickel file type")
+        super().__init__("File must be pickle file type")
